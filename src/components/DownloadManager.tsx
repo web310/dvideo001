@@ -142,10 +142,19 @@ export function DownloadManager({
         })
       });
 
-      const data = await res.json();
+      let data: any = null;
+      try {
+        const text = await res.text();
+        if (text && text.trim().length > 0) {
+          data = JSON.parse(text);
+        }
+      } catch (parseErr) {
+        console.warn('Could not parse prepare-download response as JSON:', parseErr);
+      }
+
       if (progressTimerRef.current) clearInterval(progressTimerRef.current);
 
-      if (data.success && data.downloadUrl) {
+      if (data && data.success && data.downloadUrl) {
         setProgressPercent(100);
         setProgressStatus('Stream ready! Starting download...');
         setResolvedDownloadUrl(data.downloadUrl);

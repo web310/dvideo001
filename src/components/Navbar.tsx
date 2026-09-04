@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Youtube, ShieldCheck, Zap, ExternalLink } from 'lucide-react';
+import { ShieldCheck, Zap, ExternalLink } from 'lucide-react';
 
 interface NavbarProps {
   activeVideoId?: string;
@@ -25,8 +25,13 @@ export function Navbar({ activeVideoId }: NavbarProps) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo and Brand */}
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-red-600 flex items-center justify-center shadow-sm">
-            <Youtube className="w-5 h-5 text-white fill-white" />
+          <div className="w-10 h-10 rounded-xl overflow-hidden border border-red-100 bg-white flex items-center justify-center shadow-xs p-0.5">
+            <img 
+              src="/canaan_church_icon.jpg" 
+              alt="Canaan Logo" 
+              className="w-full h-full object-contain rounded-lg"
+              referrerPolicy="no-referrer"
+            />
           </div>
           <div>
             <div className="flex items-center gap-2">

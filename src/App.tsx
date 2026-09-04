@@ -12,6 +12,7 @@ import { DownloadManager } from './components/DownloadManager';
 import { DownloadHistory } from './components/DownloadHistory';
 import { FeaturesFaq } from './components/FeaturesFaq';
 import { VideoMetadata, VideoFormatOption, AudioFormatOption, DownloadHistoryItem } from './types';
+import { fetchYouTubeMetadata } from './utils/clientYoutube';
 import { AlertCircle, RefreshCw, Sparkles, Heart } from 'lucide-react';
 
 const STORAGE_KEY = 'canaantech_download_history_v1';
@@ -93,16 +94,10 @@ export default function App() {
     setError(null);
 
     try {
-      const res = await fetch('/api/youtube/info', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url })
-      });
+      const data = await fetchYouTubeMetadata(url);
 
-      const data = await res.json();
-
-      if (!res.ok || data.error) {
-        throw new Error(data.error || 'Failed to fetch video information');
+      if (!data || !data.id) {
+        throw new Error('Unable to extract video details. Please check the YouTube link and try again.');
       }
 
       setMetadata(data);
@@ -250,7 +245,10 @@ export default function App() {
       {/* Footer */}
       <footer className="w-full border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
         <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} CanaanTech. For personal, offline, and educational use.</p>
+          <div className="flex items-center gap-2">
+            <img src="/canaan_church_icon.jpg" alt="Canaan Logo" className="w-4 h-4 object-contain rounded-xs" referrerPolicy="no-referrer" />
+            <p>© {new Date().getFullYear()} CanaanTech. For personal, offline, and educational use.</p>
+          </div>
           <div className="flex items-center gap-3 text-slate-600 font-medium">
             <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono text-[11px]">MP4 / WebM</span>
             <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono text-[11px]">MP3 320kbps</span>
