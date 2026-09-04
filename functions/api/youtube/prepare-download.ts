@@ -43,8 +43,9 @@ export async function onRequestPost(context: any) {
         const initData: any = await initRes.json();
         const progressUrl = initData.progress_url;
         if (progressUrl) {
-          for (let i = 0; i < 20; i++) {
-            await new Promise(r => setTimeout(r, 1200));
+          // Poll up to 4 times with 900ms delay to stay well within Cloudflare Worker 5s limit
+          for (let i = 0; i < 4; i++) {
+            await new Promise(r => setTimeout(r, 900));
             const pRes = await fetch(progressUrl, {
               headers: { 'User-Agent': 'Mozilla/5.0' }
             });
@@ -76,7 +77,9 @@ export async function onRequestPost(context: any) {
 
     return new Response(JSON.stringify({
       success: false,
-      error: 'Direct high-speed stream could not be converted automatically. Please use the verified gateway links or Web Live Record mode.'
+      fallbackUrl: `https://ssyoutube.com/en/convert?url=${encodeURIComponent(watchUrl)}`,
+      y2mateUrl: `https://www.y2mate.com/youtube/${id}`,
+      error: 'Direct server stream conversion is busy or restricted by YouTube. Please use the verified 1-click gateway below.'
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }

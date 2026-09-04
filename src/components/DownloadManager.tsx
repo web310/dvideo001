@@ -188,14 +188,15 @@ export function DownloadManager({
           setIsResolving(false);
         }, 1200);
       } else {
-        throw new Error(data.error || 'Could not resolve stream URL from server.');
+        const errorMsg = data?.error || 'Direct in-app stream could not be converted on this server. Please use the verified gateways below or in-browser recorder.';
+        throw new Error(errorMsg);
       }
     } catch (err: any) {
       if (progressTimerRef.current) clearInterval(progressTimerRef.current);
       console.warn('In-app preparation failed:', err);
       setIsResolving(false);
       setResolveError(
-        err.message || 'Stream generation timed out. You can still download via Direct Server Stream or verified web gateways below.'
+        err.message || 'Direct stream conversion is taking longer than expected. You can still download instantly via SSYouTube or Y2Mate below.'
       );
     }
   };
@@ -425,15 +426,48 @@ export function DownloadManager({
               </div>
             )}
 
-            {/* Error Message if resolution failed */}
+            {/* Notice & Direct 1-Click Gateway Buttons if in-app resolution failed */}
             {resolveError && (
-              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs space-y-2">
-                <div className="flex items-start gap-2">
-                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div className="p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs space-y-3 animate-in fade-in">
+                <div className="flex items-start gap-2.5">
+                  <AlertCircle className="w-4.5 h-4.5 text-amber-600 shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <span className="font-bold block">Download Notice</span>
-                    <span>{resolveError}</span>
+                    <span className="font-bold text-sm text-amber-950 block">Instant Download Ready via Gateway</span>
+                    <p className="text-amber-800 mt-0.5">
+                      Cloudflare static hosting cannot stream 100+ MB media directly, but your video link is already prepared below for 1-click download:
+                    </p>
                   </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  <a
+                    href={ssYouTubeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-xs transition active:scale-95"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>Download via SSYouTube (Pre-loaded)</span>
+                  </a>
+
+                  <a
+                    href={y2mateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[180px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white hover:bg-amber-100 border border-amber-300 text-amber-950 font-semibold text-xs shadow-xs transition active:scale-95"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Download via Y2Mate</span>
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSwitchMode('record')}
+                    className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 font-semibold text-xs transition"
+                  >
+                    <Radio className="w-3.5 h-3.5 text-red-600" />
+                    <span>Switch to In-Browser Live Record</span>
+                  </button>
                 </div>
               </div>
             )}
