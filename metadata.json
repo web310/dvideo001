@@ -1,0 +1,6 @@
+{
+  "name": "YouTube Video & Audio Downloader",
+  "description": "Download YouTube videos and audio files in custom resolutions and formats for local saving.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
