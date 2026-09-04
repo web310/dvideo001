@@ -14,7 +14,8 @@ import { FeaturesFaq } from './components/FeaturesFaq';
 import { VideoMetadata, VideoFormatOption, AudioFormatOption, DownloadHistoryItem } from './types';
 import { AlertCircle, RefreshCw, Sparkles, Heart } from 'lucide-react';
 
-const STORAGE_KEY = 'tubefetch_download_history_v1';
+const STORAGE_KEY = 'canaantech_download_history_v1';
+const LEGACY_STORAGE_KEY = 'tubefetch_download_history_v1';
 
 export default function App() {
   const [metadata, setMetadata] = useState<VideoMetadata | null>(null);
@@ -50,7 +51,7 @@ export default function App() {
   // History state
   const [history, setHistory] = useState<DownloadHistoryItem[]>(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -249,7 +250,7 @@ export default function App() {
       {/* Footer */}
       <footer className="w-full border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
         <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} TubeFetch. For personal, offline, and educational use.</p>
+          <p>© {new Date().getFullYear()} CanaanTech. For personal, offline, and educational use.</p>
           <div className="flex items-center gap-3 text-slate-600 font-medium">
             <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono text-[11px]">MP4 / WebM</span>
             <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono text-[11px]">MP3 320kbps</span>

@@ -375,7 +375,7 @@ export async function renderPlayableVideoBlob(
         // Footer Brand watermark
         ctx.fillStyle = '#475569';
         ctx.font = '12px system-ui, sans-serif';
-        ctx.fillText('Downloaded via TubeFetch Media Utility', cardX + cardW - 270, cardY + cardH - 35);
+        ctx.fillText('Downloaded via CanaanTech Media Utility', cardX + cardW - 270, cardY + cardH - 35);
 
         currentFrame++;
         const pct = 50 + Math.floor((currentFrame / totalFrames) * 45);

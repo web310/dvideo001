@@ -30,7 +30,7 @@ export function Navbar({ activeVideoId }: NavbarProps) {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-xl text-slate-900 tracking-tight">TubeFetch</span>
+              <span className="font-bold text-xl text-slate-900 tracking-tight">CanaanTech</span>
               <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200">
                 Utility
               </span>

@@ -12,7 +12,7 @@ const FAQS = [
   },
   {
     question: 'What resolutions and formats are supported?',
-    answer: 'TubeFetch supports video resolutions from 360p up to 4K Ultra HD (2160p, 1440p, 1080p, 720p, 480p) in MP4 and WebM formats, as well as audio extraction in MP3 (up to 320kbps), M4A / AAC, WAV lossless PCM, FLAC, and OPUS.'
+    answer: 'CanaanTech supports video resolutions from 360p up to 4K Ultra HD (2160p, 1440p, 1080p, 720p, 480p) in MP4 and WebM formats, as well as audio extraction in MP3 (up to 320kbps), M4A / AAC, WAV lossless PCM, FLAC, and OPUS.'
   },
   {
     question: 'Where are the downloaded files saved on my device?',
@@ -20,7 +20,7 @@ const FAQS = [
   },
   {
     question: 'Can I download YouTube Shorts and YouTube Music?',
-    answer: 'Yes! TubeFetch fully supports regular YouTube videos, YouTube Shorts, YouTube Music tracks, and shortened youtu.be links.'
+    answer: 'Yes! CanaanTech fully supports regular YouTube videos, YouTube Shorts, YouTube Music tracks, and shortened youtu.be links.'
   }
 ];
 
